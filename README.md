@@ -1,3 +1,3 @@
 # 1823_DOM
 
-This project objective is learning about manipule the DOM - Document Object Manager
+The objective of this project is learning about manipulate the DOM - Document Object Manager
