@@ -1,32 +1,33 @@
    
 // Function for create the component 'Delete Button'
-const DeleteButton = () => {
-// Create a html element 'button'
-const deleteButton = document.createElement('button');
+const DeleteButton = (uptade, id) => {
+    // Create a html element 'button'
+    const deleteButton = document.createElement('button');
 
-// Add the content/text inside the tag button
-deleteButton.innerText = 'Delete';
+    // Add the content/text inside the tag button
+    deleteButton.innerText = 'Delete';
 
-// Monitor this button 'click' 
-deleteButton.addEventListener('click', deleteTask);
-return deleteButton;
+    // Monitor this button 'click' 
+    deleteButton.addEventListener('click', () => {
+        deleteTask(uptade, id)
+    });
+
+    return deleteButton;
 }
 
 // Function to delete the task
-const deleteTask = (theEvent) => {
-    // Take the element that triggered the event
-    const deleteButton = theEvent.target;
-    
-    // Take the parent node of this target element 
-    const deletedTask = deleteButton.parentElement;
+const deleteTask = (uptade, id) => {
+    // Get the data task of the localStorage
+    const createdTask = JSON.parse(localStorage.getItem('tasks'));
 
-    // Remove the node from 'DOM tree'
-    deletedTask.remove();
+    // Remove the task
+    createdTask.splice(id, 1);
 
-    /* Other possibilty to remove the task
-        const taskList = deletedTask.parentElement;
-        taskList.removeChild(deletedTask);
-    */
+    // Uptade the data task in the localStorage
+    localStorage.setItem('tasks', JSON.stringify(createdTask))
+
+    // Uptade the screen
+    uptade()
 }
 
 export default DeleteButton;

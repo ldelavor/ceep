@@ -1,5 +1,5 @@
 // Function for create a component 'Conclude Button'
-const CompleteButton = () => {
+const CompleteButton = (update, id) => {
     // Create a html element 'button'
     const completeButton = document.createElement('button');
 
@@ -9,21 +9,27 @@ const CompleteButton = () => {
     // Add the content/text inside the tag button
     completeButton.innerText = 'Complete';
 
-    // Monitor this button 'click' 
-    completeButton.addEventListener('click', completeTask);
+    // Monitoring the button 'click' 
+    completeButton.addEventListener('click', () => {
+        completeTask(update, id);
+    });
+
     return completeButton;
 }
 
 // Function to modify something in the task when it's complete.
-const completeTask = (theEvent) => {
-    // Take the element that triggered the event
-    const completeButton = theEvent.target;
-    
-    // Take the parent node of this target element 
-    const completedTask = completeButton.parentElement;
+const completeTask = (uptade, id) => {
+    // Get the data task of the localStorage
+    const createTask = JSON.parse(localStorage.getItem('tasks'));
 
-    // Add the CSS style to the task item when the event 'click' is triggered
-    completedTask.classList.toggle('done');
+    // Change the doneCheck value
+    createTask[id].doneCheck = !createTask[id].doneCheck;
+
+    // Uptade the data task in the localStorage
+    localStorage.setItem('tasks', JSON.stringify(createTask));
+    
+    // Uptade the screen
+    uptade();
 }
 
 export default CompleteButton;
